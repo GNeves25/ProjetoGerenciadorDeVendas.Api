@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ProjetoGerenciadorDeVendas.Api.Data;
 
 namespace ProjetoGerenciadorDeVendas.Api
 {
@@ -25,14 +27,20 @@ namespace ProjetoGerenciadorDeVendas.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<GerenciadorDeVendasContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("GerenciadorDeVendasConnect")));
+
+            services.AddScoped<PopulaBanco>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PopulaBanco populaBanco)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                populaBanco.Popular();
             }
 
             app.UseRouting();
