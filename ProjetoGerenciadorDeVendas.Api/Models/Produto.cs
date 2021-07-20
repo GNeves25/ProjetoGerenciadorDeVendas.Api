@@ -9,11 +9,11 @@ namespace ProjetoGerenciadorDeVendas.Api.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public double Preco { get; set; }
+        public string Preco { get; set; }
 
         public Produto() {}
 
-        public Produto(string nome, double preco)
+        public Produto(string nome, string preco)
         {
             Nome = nome;
             Preco = preco;

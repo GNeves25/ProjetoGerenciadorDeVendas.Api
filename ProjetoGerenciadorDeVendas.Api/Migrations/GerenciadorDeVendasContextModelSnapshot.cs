@@ -28,8 +28,8 @@ namespace ProjetoGerenciadorDeVendas.Api.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Preco")
-                        .HasColumnType("float");
+                    b.Property<string>("Preco")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

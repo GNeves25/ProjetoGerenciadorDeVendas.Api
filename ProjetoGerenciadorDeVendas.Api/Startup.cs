@@ -28,6 +28,14 @@ namespace ProjetoGerenciadorDeVendas.Api
         {
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
+                });
+            });
+
             services.AddDbContext<GerenciadorDeVendasContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("GerenciadorDeVendasConnect")));
 
@@ -44,6 +52,8 @@ namespace ProjetoGerenciadorDeVendas.Api
             }
 
             app.UseRouting();
+
+            app.UseCors("EnableCORS");
 
             app.UseAuthorization();
 
