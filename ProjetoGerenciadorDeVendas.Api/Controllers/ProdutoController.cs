@@ -27,7 +27,7 @@ namespace ProjetoGerenciadorDeVendas.Api.Controllers
             return await _context.Produto.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]        
         public async Task<ActionResult<Produto>> GetProduto(int id)
         {
             var produto = await _context.Produto.FindAsync(id);

@@ -1,4 +1,5 @@
 ﻿using ProjetoGerenciadorDeVendas.Api.Models;
+using ProjetoGerenciadorDeVendas.Api.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +18,17 @@ namespace ProjetoGerenciadorDeVendas.Api.Data
 
         public void Popular()
         {
+            var rand = new Random();
+
             if (_context.Produto.Any())
             {
                 return;
             }
 
-            Produto pd1 = new Produto("Produto 01", "1.01");
-            Produto pd2 = new Produto("Produto 02", "1.10");
-            Produto pd3 = new Produto("Produto 03", "1.11");
-            Produto pd4 = new Produto("Produto 04", "2.00");
-            Produto pd5 = new Produto("Produto 05", "2.01");
-            Produto pd6 = new Produto("Produto 06", "3.10");
-            Produto pd7 = new Produto("Produto 07", "3.11");
-
-            _context.Produto.AddRange(pd1, pd2, pd3, pd4, pd5, pd6, pd7);
+            for (int i = 0; i < 1000; i++)
+            {
+                _context.Produto.AddRange(new Produto("Produto " + i, rand.Next(1, 100), new DateTime(rand.Next(2021, 2030), rand.Next(1, 12), rand.Next(1, 28)), (EnumCategoria)rand.Next(0, 10)));
+            }
             _context.SaveChanges();
         }
     }
