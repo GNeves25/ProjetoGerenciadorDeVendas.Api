@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 namespace ProjetoGerenciadorDeVendas.Api.Models
 {
     [Table("PRODUTO")]
-    public class Produto
+    public class Produto : BaseClass
     {
-        [Column("ID")]
-        public int Id { get; set; }
         [Column("NOME")]
         public string Nome { get; set; }
         [Column("QUANTIDADE")]

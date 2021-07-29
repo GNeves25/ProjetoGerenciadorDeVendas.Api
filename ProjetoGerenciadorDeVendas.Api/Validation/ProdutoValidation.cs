@@ -9,7 +9,7 @@ namespace ProjetoGerenciadorDeVendas.Api.Validation
 {
     public class ProdutoValidation : AbstractValidator<Produto>
     {
-        public void ValidaNomeValido()
+        public void ValidaNome()
         {
             RuleFor(produto => produto.Nome).NotEmpty();
         }
