@@ -8,26 +8,26 @@ namespace ProjetoGerenciadorDeVendas.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Produto",
+                name: "PRODUTO",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Quantidade = table.Column<int>(type: "int", nullable: false),
-                    DataDeVencimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Categoria = table.Column<int>(type: "int", nullable: false)
+                    NOME = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    QUANTIDADE = table.Column<int>(type: "int", nullable: false),
+                    DATA_DE_VENCIMENTO = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CATEGORIA = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produto", x => x.Id);
+                    table.PrimaryKey("PK_PRODUTO", x => x.ID);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Produto");
+                name: "PRODUTO");
         }
     }
 }

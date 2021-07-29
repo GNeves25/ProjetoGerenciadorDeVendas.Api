@@ -1,51 +1,47 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoGerenciadorDeVendas.Api.Data;
 using ProjetoGerenciadorDeVendas.Api.Models;
-using ProjetoGerenciadorDeVendas.Api.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjetoGerenciadorDeVendas.Api.Services
+namespace ProjetoGerenciadorDeVendas.Api.Repositories
 {
-    public class ProdutoService : IProdutoService
+    public class ProdutoRepository : BaseRepository, IProdutoRepository
     {
-        private readonly IProdutoRepository _produtoRepository;
-
-        public ProdutoService(IProdutoRepository produtoRepository)
+        public ProdutoRepository(GerenciadorDeVendasContext context): base(context)
         {
-            _produtoRepository = produtoRepository;
-        }
 
+        }
         public async Task AddAsync(Produto produto)
         {
-            await _produtoRepository.AddAsync(produto);
+            await _context.Produto.AddAsync(produto);
         }
 
         public async Task<Produto> FindByIdAsync(int id)
         {
-            return await _produtoRepository.FindByIdAsync(id);
+            return await _context.Produto.FindAsync(id);
         }
 
         public async Task<IEnumerable<Produto>> ListAsync()
         {
-            return await _produtoRepository.ListAsync();
+            return await _context.Produto.ToListAsync();
         }
 
         public bool ProdutoExists(int id)
         {
-            return _produtoRepository.ProdutoExists(id);
+            return _context.Produto.Any(produto => produto.Id == id);
         }
 
         public void Remove(Produto produto)
         {
-            _produtoRepository.Remove(produto);
+            _context.Produto.Remove(produto);
         }
 
         public void Update(Produto produto)
         {
-            _produtoRepository.Update(produto);
+            _context.Produto.Update(produto);
         }
     }
 }

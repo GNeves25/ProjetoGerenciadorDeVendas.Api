@@ -27,7 +27,7 @@ namespace ProjetoGerenciadorDeVendas.Api.Data
 
             for (int i = 0; i < 1000; i++)
             {
-                _context.Produto.AddRange(new Produto("Produto " + i, rand.Next(1, 100), new DateTime(rand.Next(2021, 2030), rand.Next(1, 12), rand.Next(1, 28)), (EnumCategoria)rand.Next(0, 10)));
+                _context.Produto.AddRange(new Produto("PRODUTO_" + i, rand.Next(1, 100), new DateTime(rand.Next(2021, 2030), rand.Next(1, 12), rand.Next(1, 28)), (EnumCategoria)rand.Next(0, 10)));
             }
             _context.SaveChanges();
         }

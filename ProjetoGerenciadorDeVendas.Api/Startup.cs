@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProjetoGerenciadorDeVendas.Api.Data;
+using ProjetoGerenciadorDeVendas.Api.Repositories;
+using ProjetoGerenciadorDeVendas.Api.Services;
 
 namespace ProjetoGerenciadorDeVendas.Api
 {
@@ -40,6 +42,9 @@ namespace ProjetoGerenciadorDeVendas.Api
             options.UseSqlServer(Configuration.GetConnectionString("GerenciadorDeVendasConnect")));
 
             services.AddScoped<PopulaBanco>();
+
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IProdutoService, ProdutoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

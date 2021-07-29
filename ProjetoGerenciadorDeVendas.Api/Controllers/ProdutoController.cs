@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjetoGerenciadorDeVendas.Api.Data;
 using ProjetoGerenciadorDeVendas.Api.Models;
+using ProjetoGerenciadorDeVendas.Api.Services;
 
 namespace ProjetoGerenciadorDeVendas.Api.Controllers
 {
@@ -14,23 +15,23 @@ namespace ProjetoGerenciadorDeVendas.Api.Controllers
     [ApiController]
     public class ProdutoController : ControllerBase
     {
-        private readonly GerenciadorDeVendasContext _context;
+        private readonly IProdutoService _produtoService;
 
-        public ProdutoController(GerenciadorDeVendasContext context)
+        public ProdutoController(IProdutoService produtoService)
         {
-            _context = context;
+            _produtoService = produtoService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Produto>>> GetProduto()
+        public async Task<IEnumerable<Produto>> GetAllProdutosAsync()
         {
-            return await _context.Produto.ToListAsync();
+            return await _produtoService.ListAsync();
         }
-
+        
         [HttpGet("{id}")]        
         public async Task<ActionResult<Produto>> GetProduto(int id)
         {
-            var produto = await _context.Produto.FindAsync(id);
+            var produto = await _produtoService.FindByIdAsync(id);
 
             if (produto == null)
             {
@@ -41,22 +42,20 @@ namespace ProjetoGerenciadorDeVendas.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduto(int id, Produto produto)
+        public IActionResult PutProduto(int id, Produto produto)
         {
             if (id != produto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(produto).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _produtoService.Update(produto);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProdutoExists(id))
+                if (_produtoService.ProdutoExists(id))
                 {
                     return NotFound();
                 }
@@ -72,30 +71,24 @@ namespace ProjetoGerenciadorDeVendas.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Produto>> PostProduto(Produto produto)
         {
-            _context.Produto.Add(produto);
-            await _context.SaveChangesAsync();
+            await _produtoService.AddAsync(produto);
 
             return CreatedAtAction("GetProduto", new { id = produto.Id }, produto);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Produto>> DeleteProduto(int id)
+        public ActionResult<Produto> DeleteProduto(int id)
         {
-            var produto = await _context.Produto.FindAsync(id);
+            var produto = _produtoService.FindByIdAsync(id);
             if (produto == null)
             {
                 return NotFound();
             }
 
-            _context.Produto.Remove(produto);
-            await _context.SaveChangesAsync();
+            _produtoService.Remove(produto.Result);
 
-            return produto;
-        }
+            return Ok();
 
-        private bool ProdutoExists(int id)
-        {
-            return _context.Produto.Any(e => e.Id == id);
         }
     }
 }

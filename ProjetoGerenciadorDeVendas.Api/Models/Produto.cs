@@ -1,17 +1,24 @@
 ﻿using ProjetoGerenciadorDeVendas.Api.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProjetoGerenciadorDeVendas.Api.Models
 {
+    [Table("PRODUTO")]
     public class Produto
     {
+        [Column("ID")]
         public int Id { get; set; }
+        [Column("NOME")]
         public string Nome { get; set; }
+        [Column("QUANTIDADE")]
         public int Quantidade { get; set; }
+        [Column("DATA_DE_VENCIMENTO")]
         public DateTime DataDeVencimento { get; set; }
+        [Column("CATEGORIA")]
         public EnumCategoria Categoria { get; set; }
 
         public Produto() {}

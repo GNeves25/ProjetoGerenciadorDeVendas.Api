@@ -24,23 +24,28 @@ namespace ProjetoGerenciadorDeVendas.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Categoria")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CATEGORIA");
 
                     b.Property<DateTime>("DataDeVencimento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DATA_DE_VENCIMENTO");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NOME");
 
                     b.Property<int>("Quantidade")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("QUANTIDADE");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produto");
+                    b.ToTable("PRODUTO");
                 });
 #pragma warning restore 612, 618
         }
