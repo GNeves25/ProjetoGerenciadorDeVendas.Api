@@ -13,5 +13,17 @@ namespace ProjetoGerenciadorDeVendas.Api.Validation
         {
             RuleFor(produto => produto.Nome).NotEmpty();
         }
+        public void ValidaQuantidade()
+        {
+            RuleFor(produto => produto.Quantidade).NotEmpty();
+        }
+        public void ValidaDataDeVencimento()
+        {
+            RuleFor(produto => produto.DataDeVencimento).NotEmpty();
+        }
+        public void ValidaCategoria()
+        {
+            RuleFor(produto => produto.Categoria).NotEmpty();
+        }
     }
 }
